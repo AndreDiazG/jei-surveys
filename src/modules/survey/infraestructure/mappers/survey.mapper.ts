@@ -1,9 +1,18 @@
 import { Survey } from '../../domain/entities/survey.entity';
 import { SurveyOrmEntity } from '../persistence/entities/survey.orm-entity';
 import { UserOrmEntity } from '../../../auth/infraestructure/persistence/entities/user.orm-entity';
+import { QuestionMapper } from './question.mapper';
 
 export class SurveyMapper {
   static toDomain(entity: SurveyOrmEntity): Survey {
+    const questions = entity.questions
+      ? entity.questions.map((questionEntity) => {
+          // Asignación de la encuesta padre a cada pregunta para que pueda leer 'questionEntity.survey.id' sin romperse.
+          questionEntity.survey = entity;
+          return QuestionMapper.toDomain(questionEntity);
+        })
+      : [];
+
     return new Survey(
       entity.title,
       entity.createdBy?.id, // Extraemos el ID del objeto usuario
@@ -11,6 +20,7 @@ export class SurveyMapper {
       entity.isActive,
       entity.id,
       entity.createdAt,
+      questions,
     );
   }
 

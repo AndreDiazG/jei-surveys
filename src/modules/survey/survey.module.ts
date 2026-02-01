@@ -11,6 +11,7 @@ import { AuthModule } from '../auth/auth.module';
 import { QuestionController } from './infraestructure/controllers/question.controller';
 import { CreateQuestionUseCase } from './application/use-cases/create-question.usecase';
 import { QuestionTypeOrmRepository } from './infraestructure/persistence/repositories/question.typeorm.repository';
+import { GetSurveyUseCase } from './application/use-cases/get-survey.usecase';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { QuestionTypeOrmRepository } from './infraestructure/persistence/reposit
   controllers: [SurveyController, QuestionController],
   providers: [
     CreateSurveyUseCase,
+    GetSurveyUseCase,
     CreateQuestionUseCase,
     {
       provide: 'SurveyRepository',

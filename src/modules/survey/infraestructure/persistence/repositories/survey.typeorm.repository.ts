@@ -21,12 +21,24 @@ export class SurveyTypeOrmRepository implements SurveyRepository {
     return SurveyMapper.toDomain(savedEntity);
   }
 
+  async findById(id: number): Promise<Survey | null> {
+    const entity = await this.typeOrmRepository.findOne({
+      where: { id },
+      relations: ['questions', 'createdBy'], // Relación con preguntas y usuario creador
+      order: {
+        questions: {
+          id: 'ASC',
+        },
+      },
+    });
+
+    if (!entity) return null;
+
+    return SurveyMapper.toDomain(entity);
+  }
+
   // eslint-disable-next-line @typescript-eslint/require-await
   async findAll(): Promise<Survey[]> {
     return [];
-  }
-  // eslint-disable-next-line @typescript-eslint/require-await, @typescript-eslint/no-unused-vars
-  async findById(id: number): Promise<Survey | null> {
-    return null;
   }
 }

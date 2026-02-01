@@ -1,3 +1,5 @@
+import { Question } from './question.entity';
+
 export class Survey {
   id?: number;
   title: string;
@@ -5,6 +7,7 @@ export class Survey {
   isActive: boolean;
   createdAt?: Date;
   ownerId: number;
+  questions?: Question[];
 
   constructor(
     title: string,
@@ -13,6 +16,7 @@ export class Survey {
     isActive: boolean = true,
     id?: number,
     createdAt?: Date,
+    questions?: Question[],
   ) {
     this.title = title;
     this.ownerId = ownerId;
@@ -20,5 +24,6 @@ export class Survey {
     this.isActive = isActive;
     this.id = id;
     this.createdAt = createdAt;
+    this.questions = questions;
   }
 }
