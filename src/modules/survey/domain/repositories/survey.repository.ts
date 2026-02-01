@@ -1,4 +1,5 @@
 import { Survey } from '../entities/survey.entity';
+import { SurveyResponse } from '../entities/survey-response.entity';
 
 export interface SurveyRepository {
   /**
@@ -24,4 +25,10 @@ export interface SurveyRepository {
    * @param ownerId El ID del propietario.
    */
   findByOwner(ownerId: number): Promise<Survey[]>;
+
+  /**
+   * Obtiene las respuestas de una encuesta específica.
+   * @param surveyId El ID de la encuesta.
+   */
+  findResponses(surveyId: number): Promise<SurveyResponse[]>;
 }

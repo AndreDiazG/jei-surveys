@@ -15,6 +15,8 @@ import { CreateSurveyDto } from '../../application/dtos/create-survey.dto';
 import { JwtAuthGuard } from '../../../../shared/guards/jwt-auth.guard';
 import { CurrentUser } from '../../../../shared/decorators/current-user.decorator';
 import type { UserContext } from '../../../../modules/auth/application/interfaces/auth.interfaces';
+import { GetSurveyResponsesUseCase } from '../../application/use-cases/get-survey-responses.usecase';
+import { SurveyResponse } from '../../domain/entities/survey-response.entity';
 
 @Controller('surveys')
 export class SurveyController {
@@ -22,6 +24,7 @@ export class SurveyController {
     private readonly createSurveyUseCase: CreateSurveyUseCase,
     private readonly getSurveyUseCase: GetSurveyUseCase,
     private readonly getUserSurveysUseCase: GetUserSurveysUseCase,
+    private readonly getSurveyResponsesUseCase: GetSurveyResponsesUseCase,
   ) {}
 
   @Post()
@@ -44,5 +47,13 @@ export class SurveyController {
   // No se usa @UseGuards dado que la encuesta es pública para responder.
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return await this.getSurveyUseCase.execute(id);
+  }
+
+  @Get(':id/responses')
+  @UseGuards(JwtAuthGuard)
+  async getResponses(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<SurveyResponse[]> {
+    return await this.getSurveyResponsesUseCase.execute(id);
   }
 }
