@@ -19,8 +19,8 @@ export class SurveyOrmEntity {
   @Column()
   title: string;
 
-  @Column({ nullable: true })
-  description: string;
+  @Column({ type: 'text', nullable: true })
+  description: string | null;
 
   @ManyToOne(() => UserOrmEntity, (user) => user.surveys)
   @JoinColumn({ name: 'created_by' })

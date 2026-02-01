@@ -4,6 +4,10 @@ import { AnswerOrmEntity } from './infraestructure/persistence/entities/answer.o
 import { QuestionOrmEntity } from './infraestructure/persistence/entities/question.orm-entity';
 import { ResponseOrmEntity } from './infraestructure/persistence/entities/response.orm-entity';
 import { SurveyOrmEntity } from './infraestructure/persistence/entities/survey.orm-entity';
+import { SurveyController } from './infraestructure/controllers/survey.controller';
+import { CreateSurveyUseCase } from './application/use-cases/create-survey.usecase';
+import { SurveyTypeOrmRepository } from './infraestructure/persistence/repositories/survey.typeorm.repository';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
@@ -13,8 +17,16 @@ import { SurveyOrmEntity } from './infraestructure/persistence/entities/survey.o
       QuestionOrmEntity,
       ResponseOrmEntity,
     ]),
+    AuthModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [SurveyController],
+  providers: [
+    CreateSurveyUseCase,
+    {
+      provide: 'SurveyRepository',
+      useClass: SurveyTypeOrmRepository,
+    },
+  ],
+  exports: ['SurveyRepository'],
 })
 export class SurveyModule {}

@@ -7,7 +7,7 @@ export class SurveyMapper {
     return new Survey(
       entity.title,
       entity.createdBy?.id, // Extraemos el ID del objeto usuario
-      entity.description,
+      entity.description || undefined,
       entity.isActive,
       entity.id,
       entity.createdAt,
@@ -16,9 +16,11 @@ export class SurveyMapper {
 
   static toPersistence(domain: Survey): SurveyOrmEntity {
     const entity = new SurveyOrmEntity();
-    entity.id = domain.id;
+    if (domain.id) {
+      entity.id = domain.id;
+    }
     entity.title = domain.title;
-    entity.description = domain.description;
+    entity.description = domain.description ?? null;
     entity.isActive = domain.isActive;
     const user = new UserOrmEntity();
     user.id = domain.ownerId;

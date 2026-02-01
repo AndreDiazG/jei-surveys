@@ -1,7 +1,7 @@
 export class Survey {
-  id: number;
+  id?: number;
   title: string;
-  description: string;
+  description?: string;
   isActive: boolean;
   createdAt?: Date;
   ownerId: number;
@@ -9,9 +9,9 @@ export class Survey {
   constructor(
     title: string,
     ownerId: number,
-    description: string,
+    description?: string,
     isActive: boolean = true,
-    id: number,
+    id?: number,
     createdAt?: Date,
   ) {
     this.title = title;
