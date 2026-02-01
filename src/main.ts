@@ -1,10 +1,19 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true, //Elimina campos que no estén en el DTO
+      forbidNonWhitelisted: true, //Lanza error si envían campos extra
+      transform: true, //Convierte el JSON plano a instancias de Clases DTO
+    }),
+  );
 
   const config = new DocumentBuilder()
     .setTitle('API')
