@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { CreateSurveyUseCase } from '../../application/use-cases/create-survey.usecase';
 import { GetSurveyUseCase } from '../../application/use-cases/get-survey.usecase';
+import { GetUserSurveysUseCase } from '../../application/use-cases/get-user-surveys.usecase';
 import { CreateSurveyDto } from '../../application/dtos/create-survey.dto';
 import { JwtAuthGuard } from '../../../../shared/guards/jwt-auth.guard';
 import { CurrentUser } from '../../../../shared/decorators/current-user.decorator';
@@ -20,6 +21,7 @@ export class SurveyController {
   constructor(
     private readonly createSurveyUseCase: CreateSurveyUseCase,
     private readonly getSurveyUseCase: GetSurveyUseCase,
+    private readonly getUserSurveysUseCase: GetUserSurveysUseCase,
   ) {}
 
   @Post()
@@ -30,6 +32,12 @@ export class SurveyController {
   ) {
     // El user.id viene del token.
     return await this.createSurveyUseCase.execute(dto, user.id);
+  }
+
+  @Get()
+  @UseGuards(JwtAuthGuard)
+  async findAllMySurveys(@CurrentUser() user: UserContext) {
+    return await this.getUserSurveysUseCase.execute(user.id);
   }
 
   @Get(':id')

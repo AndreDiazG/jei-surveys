@@ -18,4 +18,10 @@ export interface SurveyRepository {
    * Lista todas las encuestas.
    */
   findAll(): Promise<Survey[]>;
+
+  /**
+   * Lista todas las encuestas de un propietario específico.
+   * @param ownerId El ID del propietario.
+   */
+  findByOwner(ownerId: number): Promise<Survey[]>;
 }

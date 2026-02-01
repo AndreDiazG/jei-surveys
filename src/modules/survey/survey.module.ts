@@ -15,6 +15,7 @@ import { GetSurveyUseCase } from './application/use-cases/get-survey.usecase';
 import { ResponseController } from './infraestructure/controllers/response.controller';
 import { SubmitResponseUseCase } from './application/use-cases/submit-response.usecase';
 import { ResponseTypeOrmRepository } from './infraestructure/persistence/repositories/response.typeorm.repository';
+import { GetUserSurveysUseCase } from './application/use-cases/get-user-surveys.usecase';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { ResponseTypeOrmRepository } from './infraestructure/persistence/reposit
   providers: [
     CreateSurveyUseCase,
     GetSurveyUseCase,
+    GetUserSurveysUseCase,
     CreateQuestionUseCase,
     SubmitResponseUseCase,
     {

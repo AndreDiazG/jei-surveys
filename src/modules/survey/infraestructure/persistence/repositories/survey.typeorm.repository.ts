@@ -37,6 +37,20 @@ export class SurveyTypeOrmRepository implements SurveyRepository {
     return SurveyMapper.toDomain(entity);
   }
 
+  async findByOwner(ownerId: number): Promise<Survey[]> {
+    const entities = await this.typeOrmRepository.find({
+      where: {
+        createdBy: { id: ownerId },
+      },
+      order: {
+        createdAt: 'DESC',
+      },
+    });
+
+    // Mapeo de entidades ORM a entidades de Dominio
+    return entities.map((entity) => SurveyMapper.toDomain(entity));
+  }
+
   // eslint-disable-next-line @typescript-eslint/require-await
   async findAll(): Promise<Survey[]> {
     return [];
