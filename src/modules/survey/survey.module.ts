@@ -8,6 +8,9 @@ import { SurveyController } from './infraestructure/controllers/survey.controlle
 import { CreateSurveyUseCase } from './application/use-cases/create-survey.usecase';
 import { SurveyTypeOrmRepository } from './infraestructure/persistence/repositories/survey.typeorm.repository';
 import { AuthModule } from '../auth/auth.module';
+import { QuestionController } from './infraestructure/controllers/question.controller';
+import { CreateQuestionUseCase } from './application/use-cases/create-question.usecase';
+import { QuestionTypeOrmRepository } from './infraestructure/persistence/repositories/question.typeorm.repository';
 
 @Module({
   imports: [
@@ -19,12 +22,17 @@ import { AuthModule } from '../auth/auth.module';
     ]),
     AuthModule,
   ],
-  controllers: [SurveyController],
+  controllers: [SurveyController, QuestionController],
   providers: [
     CreateSurveyUseCase,
+    CreateQuestionUseCase,
     {
       provide: 'SurveyRepository',
       useClass: SurveyTypeOrmRepository,
+    },
+    {
+      provide: 'QuestionRepository',
+      useClass: QuestionTypeOrmRepository,
     },
   ],
   exports: ['SurveyRepository'],

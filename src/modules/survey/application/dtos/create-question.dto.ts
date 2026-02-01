@@ -7,6 +7,7 @@ import {
   IsEnum,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { OmitType } from '@nestjs/mapped-types';
 import {
   ChoiceOptionsDto,
   MultipleChoiceOptionsDto,
@@ -60,3 +61,7 @@ export class CreateQuestionDto {
   @IsOptional()
   required?: boolean;
 }
+
+export class CreateQuestionBodyDto extends OmitType(CreateQuestionDto, [
+  'surveyId',
+] as const) {}

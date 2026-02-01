@@ -1,26 +1,26 @@
-import { QuestionOptions } from '../types/question-options.types';
+import { QuestionType, QuestionOptions } from '../types/question-options.types';
 
 export class Question {
   id?: number;
+  surveyId: number;
   text: string;
-  type: string;
+  type: QuestionType;
   options: QuestionOptions;
   required: boolean;
   position: number;
-  surveyId: number;
 
   constructor(
-    text: string,
-    type: string,
     surveyId: number,
+    text: string,
+    type: QuestionType,
     options: QuestionOptions,
     required: boolean = false,
     position: number = 0,
     id?: number,
   ) {
+    this.surveyId = surveyId;
     this.text = text;
     this.type = type;
-    this.surveyId = surveyId;
     this.options = options;
     this.required = required;
     this.position = position;

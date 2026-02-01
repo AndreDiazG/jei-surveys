@@ -6,30 +6,34 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { SurveyOrmEntity } from './survey.orm-entity';
+import type {
+  QuestionType,
+  QuestionOptions,
+} from '../../../domain/types/question-options.types';
 
 @Entity('questions')
 export class QuestionOrmEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => SurveyOrmEntity, (survey) => survey.questions, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'survey_id' })
-  survey: SurveyOrmEntity;
-
   @Column()
   text: string;
 
   @Column()
-  type: string; // text | single | multiple | rating
+  type: QuestionType; // text | single | multiple | rating
 
-  @Column({ type: 'jsonb', nullable: true })
-  options: any;
+  @Column({ type: 'jsonb', default: {} })
+  options: QuestionOptions;
 
   @Column({ default: false })
   required: boolean;
 
   @Column({ nullable: true })
   position: number;
+
+  @ManyToOne(() => SurveyOrmEntity, (survey) => survey.questions, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'survey_id' })
+  survey: SurveyOrmEntity;
 }
