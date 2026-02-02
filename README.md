@@ -16,7 +16,7 @@ API para la gestión de encuestas, preguntas y respuestas, construida con NestJS
 ## Instalación
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/AndreDiazG/jei-surveys.git
 cd jei-surveys
 npm install
 ```
