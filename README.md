@@ -34,13 +34,32 @@ DB_DATABASE=jei_surveys
 JWT_SECRET=your_secret
 ```
 
-## Uso con Docker
+## Base de datos
+
+La API utiliza PostgreSQL como sistema de gestión de base de datos y TypeORM para el mapeo objeto-relacional.
+
+### Tablas principales
+
+- **users**: Almacena los usuarios autenticados.
+- **surveys**: Encuestas creadas por los usuarios.
+- **questions**: Preguntas asociadas a cada encuesta.
+- **responses**: Respuestas de los usuarios a las encuestas.
+- **answers**: Respuestas individuales a cada pregunta.
+
+### Inicialización
+
+Puedes levantar la base de datos automáticamente con Docker usando:
 
 ```bash
 docker-compose up --build
 ```
 
-Esto levanta la base de datos y la API.
+O bien, crear la base de datos manualmente en PostgreSQL y configurar las variables de entorno.
+
+### Diagrama entidad-relación
+
+![Diagrama ER](./er-diagram.png)
+
 
 ## Scripts útiles
 
