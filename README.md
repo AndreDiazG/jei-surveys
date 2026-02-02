@@ -10,7 +10,7 @@ API para la gestión de encuestas, preguntas y respuestas, construida con NestJS
 - Validación de datos con DTOs y class-validator
 - Arquitectura limpia: módulos, casos de uso, repositorios, entidades de dominio
 - Documentación interactiva con Swagger (`/docs`)
-- Pruebas unitarias y e2e
+- Pruebas unitarias
 - Soporte para Docker
 
 ## Instalación
@@ -48,7 +48,6 @@ Esto levanta la base de datos y la API.
 npm run start         # Modo producción
 npm run start:dev     # Modo desarrollo con hot reload
 npm run test          # Pruebas unitarias
-npm run test:e2e      # Pruebas end-to-end
 npm run test:cov      # Cobertura de tests
 ```
 
@@ -106,6 +105,7 @@ El proyecto sigue una arquitectura modular y por capas, inspirada en Clean Archi
 - Fácil de testear y mantener.
 - Permite cambiar la infraestructura (ej: base de datos) sin afectar la lógica de negocio.
 - Escalable para agregar nuevos módulos o funcionalidades.
+- Permite evolucionar de un monolito modular a una arquitectura de microservicios de forma sencilla, si el crecimiento o los requisitos del proyecto lo demandan.
 
 ## Principales entidades
 
@@ -118,7 +118,7 @@ El proyecto sigue una arquitectura modular y por capas, inspirada en Clean Archi
 
 ```bash
 npm run test
-npm run test:e2e
+npm run test:cov
 ```
 
 ## Contribuir
