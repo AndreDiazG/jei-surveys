@@ -17,6 +17,8 @@ import { SubmitResponseUseCase } from './application/use-cases/submit-response.u
 import { ResponseTypeOrmRepository } from './infraestructure/persistence/repositories/response.typeorm.repository';
 import { GetUserSurveysUseCase } from './application/use-cases/get-user-surveys.usecase';
 import { GetSurveyResponsesUseCase } from './application/use-cases/get-survey-responses.usecase';
+import { UpdateSurveyUseCase } from './application/use-cases/update-survey.usecase';
+import { DeleteSurveyUseCase } from './application/use-cases/delete-survey.usecase';
 
 @Module({
   imports: [
@@ -36,6 +38,8 @@ import { GetSurveyResponsesUseCase } from './application/use-cases/get-survey-re
     CreateQuestionUseCase,
     SubmitResponseUseCase,
     GetSurveyResponsesUseCase,
+    DeleteSurveyUseCase,
+    UpdateSurveyUseCase,
     {
       provide: 'SurveyRepository',
       useClass: SurveyTypeOrmRepository,

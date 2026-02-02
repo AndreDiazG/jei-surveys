@@ -31,4 +31,18 @@ export interface SurveyRepository {
    * @param surveyId El ID de la encuesta.
    */
   findResponses(surveyId: number): Promise<SurveyResponse[]>;
+
+  /**
+   * Actualiza una encuesta existente.
+   * @param id El ID de la encuesta a actualizar.
+   * @param survey Los datos parciales de la encuesta a actualizar.
+   * @returns La encuesta actualizada.
+   */
+  update(id: number, survey: Partial<Survey>): Promise<Survey>;
+
+  /**
+   * Elimina una encuesta por su ID.
+   * @param id El ID de la encuesta a eliminar.
+   */
+  delete(id: number): Promise<void>;
 }

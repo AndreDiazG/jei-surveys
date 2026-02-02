@@ -3,10 +3,11 @@ import {
   Post,
   Body,
   UseGuards,
-  Request,
   Get,
   Param,
   ParseIntPipe,
+  Delete,
+  Patch,
 } from '@nestjs/common';
 import { CreateSurveyUseCase } from '../../application/use-cases/create-survey.usecase';
 import { GetSurveyUseCase } from '../../application/use-cases/get-survey.usecase';
@@ -17,6 +18,9 @@ import { CurrentUser } from '../../../../shared/decorators/current-user.decorato
 import type { UserContext } from '../../../../modules/auth/application/interfaces/auth.interfaces';
 import { GetSurveyResponsesUseCase } from '../../application/use-cases/get-survey-responses.usecase';
 import { SurveyResponse } from '../../domain/entities/survey-response.entity';
+import { DeleteSurveyUseCase } from '../../application/use-cases/delete-survey.usecase';
+import { UpdateSurveyUseCase } from '../../application/use-cases/update-survey.usecase';
+import { UpdateSurveyDto } from '../../application/dtos/update-survey.dto';
 
 @Controller('surveys')
 export class SurveyController {
@@ -25,6 +29,8 @@ export class SurveyController {
     private readonly getSurveyUseCase: GetSurveyUseCase,
     private readonly getUserSurveysUseCase: GetUserSurveysUseCase,
     private readonly getSurveyResponsesUseCase: GetSurveyResponsesUseCase,
+    private readonly deleteSurveyUseCase: DeleteSurveyUseCase,
+    private readonly updateSurveyUseCase: UpdateSurveyUseCase,
   ) {}
 
   @Post()
@@ -55,5 +61,15 @@ export class SurveyController {
     @Param('id', ParseIntPipe) id: number,
   ): Promise<SurveyResponse[]> {
     return await this.getSurveyResponsesUseCase.execute(id);
+  }
+
+  @Delete(':id')
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.deleteSurveyUseCase.execute(id);
+  }
+
+  @Patch(':id')
+  update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateSurveyDto) {
+    return this.updateSurveyUseCase.execute(id, dto);
   }
 }

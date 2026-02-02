@@ -76,4 +76,14 @@ export class SurveyTypeOrmRepository implements SurveyRepository {
     // Mapeamos de ORM a Dominio
     return entities.map((entity) => ResponseMapper.toDomain(entity));
   }
+
+  async update(id: number, survey: Partial<Survey>): Promise<Survey> {
+    await this.typeOrmRepository.update(id, survey);
+    // Devuelve la entidad actualizada
+    return this.findById(id) as Promise<Survey>;
+  }
+
+  async delete(id: number): Promise<void> {
+    await this.typeOrmRepository.delete(id);
+  }
 }
